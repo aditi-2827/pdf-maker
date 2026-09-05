@@ -6,15 +6,21 @@ import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-  } catch (e) {
-    // Firebase is not configured yet (or offline only).
-    // The app continues fully functional in local mode.
-    debugPrint('Firebase init skipped: $e');
+  } catch (_) {
+    try {
+      // Fallback: read config from native google-services.json resources.
+      await Firebase.initializeApp();
+    } catch (_) {
+      // Firebase not configured. The app continues fully local.
+      debugPrint('Firebase init skipped — running in local mode.');
+    }
   }
+
   runApp(const PdfMakerApp());
 }
 
