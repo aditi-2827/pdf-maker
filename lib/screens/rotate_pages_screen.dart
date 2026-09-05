@@ -215,15 +215,15 @@ class _RotatePagesScreenState extends State<RotatePagesScreen> {
               width: 90,
               height: 90,
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(22),
               ),
               child: const Icon(Icons.rotate_right, color: AppColors.primary, size: 44),
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'Rotate PDF Pages',
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -251,14 +251,14 @@ class _RotatePagesScreenState extends State<RotatePagesScreen> {
           margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
           padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(14),
           ),
           child: Column(
             children: [
               Row(
                 children: [
-                  const Text('Rotate All:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13)),
+                  Text('Rotate All:', style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600, fontSize: 13)),
                   const SizedBox(width: 10),
                   _RotBtn(
                     icon: Icons.rotate_left,
@@ -357,11 +357,10 @@ class _RotatePagesScreenState extends State<RotatePagesScreen> {
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: _pickFile,
-                  icon: const Icon(Icons.swap_horiz, color: Colors.white),
-                  label: const Text('Change PDF', style: TextStyle(color: Colors.white)),
+                  icon: const Icon(Icons.swap_horiz),
+                  label: const Text('Change PDF'),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    side: const BorderSide(color: AppColors.divider),
                   ),
                 ),
               ),
@@ -394,22 +393,26 @@ class _RotBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
-          color: AppColors.bg,
+          color: scheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.divider.withValues(alpha: 0.2)),
+          border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.4)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, size: 16, color: AppColors.primary),
             const SizedBox(width: 4),
-            Text(label, style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600)),
+            Text(
+              label,
+              style: TextStyle(color: scheme.onSurface, fontSize: 11, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
       ),
@@ -435,7 +438,7 @@ class _RotatePageTile extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isRotated ? AppColors.primary : AppColors.divider.withValues(alpha: 0.15),

@@ -1,27 +1,37 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
 class DocumentListTile extends StatelessWidget {
-  final File file;
+  final String name;
   final String subtitle;
   final VoidCallback? onTap;
   final VoidCallback? onMore;
+  final bool favorite;
+  final VoidCallback? onFavoriteTap;
 
   const DocumentListTile({
     super.key,
-    required this.file,
+    required this.name,
     required this.subtitle,
     this.onTap,
     this.onMore,
+    this.favorite = false,
+    this.onFavoriteTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final name = file.path.split(Platform.pathSeparator).last;
+    final scheme = Theme.of(context).colorScheme;
+    final divider = Theme.of(context).brightness == Brightness.dark
+        ? const Color(0xFF1E2D4A)
+        : const Color(0xFFE5E7EB);
     return Material(
-      color: AppColors.card,
+      color: scheme.surface,
       borderRadius: BorderRadius.circular(14),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: BorderSide(color: divider.withValues(alpha: 0.6)),
+      ),
       child: InkWell(
         borderRadius: BorderRadius.circular(14),
         onTap: onTap,
@@ -39,20 +49,31 @@ class DocumentListTile extends StatelessWidget {
                       name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.textDark,
+                      style: TextStyle(
+                        color: scheme.onSurface,
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                       ),
                     ),
                     const SizedBox(height: 3),
-                    Text(subtitle, style: const TextStyle(color: AppColors.textGray, fontSize: 12)),
+                    Text(
+                      subtitle,
+                      style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+                    ),
                   ],
                 ),
               ),
+              if (onFavoriteTap != null)
+                IconButton(
+                  icon: Icon(
+                    favorite ? Icons.favorite : Icons.favorite_border,
+                    color: favorite ? AppColors.danger : scheme.onSurfaceVariant,
+                  ),
+                  onPressed: onFavoriteTap,
+                ),
               if (onMore != null)
                 IconButton(
-                  icon: const Icon(Icons.more_vert, color: AppColors.textGray),
+                  icon: Icon(Icons.more_vert, color: scheme.onSurfaceVariant),
                   onPressed: onMore,
                 ),
             ],
@@ -60,27 +81,5 @@ class DocumentListTile extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-String formatFileMeta(File file) {
-  final bytes = file.lengthSync();
-  final size = bytes < 1024 * 1024
-      ? '${(bytes / 1024).toStringAsFixed(0)} KB'
-      : '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
-  final modified = file.lastModifiedSync();
-  final now = DateTime.now();
-  final isToday = modified.year == now.year && modified.month == now.month && modified.day == now.day;
-  final time = isToday
-      ? 'Today, ${TimeOfDay.fromDateTime(modified).format24Hour()}'
-      : '${modified.month}/${modified.day}/${modified.year}';
-  return '$size • $time';
-}
-
-extension _TimeFormat on TimeOfDay {
-  String format24Hour() {
-    final h = hour.toString().padLeft(2, '0');
-    final m = minute.toString().padLeft(2, '0');
-    return '$h:$m';
   }
 }

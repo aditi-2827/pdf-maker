@@ -210,15 +210,15 @@ class _ReorderPagesScreenState extends State<ReorderPagesScreen> {
               width: 90,
               height: 90,
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(22),
               ),
               child: const Icon(Icons.reorder, color: AppColors.primary, size: 44),
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'Reorder PDF Pages',
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -246,7 +246,7 @@ class _ReorderPagesScreenState extends State<ReorderPagesScreen> {
           margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -292,11 +292,10 @@ class _ReorderPagesScreenState extends State<ReorderPagesScreen> {
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: _pickFile,
-                  icon: const Icon(Icons.swap_horiz, color: Colors.white),
-                  label: const Text('Change PDF', style: TextStyle(color: Colors.white)),
+                  icon: const Icon(Icons.swap_horiz),
+                  label: const Text('Change PDF'),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    side: const BorderSide(color: AppColors.divider),
                   ),
                 ),
               ),
@@ -440,7 +439,9 @@ class _PageTile extends StatelessWidget {
       width: width,
       height: height + 28,
       decoration: BoxDecoration(
-        color: isHovered ? AppColors.primary.withValues(alpha: 0.15) : AppColors.surface,
+        color: isHovered
+            ? AppColors.primary.withValues(alpha: 0.15)
+            : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isHovered ? AppColors.primary : AppColors.divider.withValues(alpha: 0.15),

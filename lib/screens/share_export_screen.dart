@@ -5,6 +5,7 @@ import 'package:pdfx/pdfx.dart' as pdfx;
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import '../theme/app_theme.dart';
 import '../utils/file_helper.dart';
+import '../services/firestore_service.dart';
 
 enum _ExportFormat { pdf, jpg, png, docx }
 
@@ -111,6 +112,9 @@ class _ShareExportScreenState extends State<ShareExportScreen> {
       }
 
       await FileHelper.shareFile(pathToShare);
+      FirestoreService.instance.recordShare(
+        widget.file.path.split(Platform.pathSeparator).last,
+      );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -235,7 +239,7 @@ class _ShareExportScreenState extends State<ShareExportScreen> {
                   title: Text('Compress Document', style: TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 13.5)),
                   subtitle: const Text('Reduce file size for faster email sharing', style: TextStyle(color: AppColors.textGray, fontSize: 12)),
                   value: _compress,
-                  activeColor: AppColors.primary,
+                  activeThumbColor: AppColors.primary,
                   onChanged: (v) => setState(() => _compress = v),
                 ),
               ),

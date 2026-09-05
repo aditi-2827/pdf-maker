@@ -151,13 +151,13 @@ class _MetadataEditorScreenState extends State<MetadataEditorScreen> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.check_circle, color: Colors.green, size: 22),
-            SizedBox(width: 8),
-            Text('Saved!', style: TextStyle(color: Colors.white, fontSize: 17)),
+            const Icon(Icons.check_circle, color: Colors.green, size: 22),
+            const SizedBox(width: 8),
+            Text('Saved!', style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 17)),
           ],
         ),
         content: const Text(
@@ -226,15 +226,15 @@ class _MetadataEditorScreenState extends State<MetadataEditorScreen> {
               width: 90,
               height: 90,
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(22),
               ),
               child: const Icon(Icons.edit_note, color: AppColors.primary, size: 44),
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'PDF Metadata Editor',
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -330,11 +330,10 @@ class _MetadataEditorScreenState extends State<MetadataEditorScreen> {
         const SizedBox(height: 8),
         OutlinedButton.icon(
           onPressed: _pickFile,
-          icon: const Icon(Icons.swap_horiz, color: Colors.white),
-          label: const Text('Change File', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.swap_horiz),
+          label: const Text('Change File'),
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(50),
-            side: const BorderSide(color: AppColors.divider),
           ),
         ),
         const SizedBox(height: 16),
@@ -380,13 +379,13 @@ class _MetaField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.divider.withValues(alpha: 0.12)),
       ),
       child: TextField(
         controller: controller,
-        style: const TextStyle(color: Colors.white, fontSize: 14),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 14),
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(color: AppColors.textFaint, fontSize: 13),
@@ -423,7 +422,7 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
       ),
@@ -445,7 +444,7 @@ class _InfoCard extends StatelessWidget {
                         fileName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13.5),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w700, fontSize: 13.5),
                       ),
                       const SizedBox(height: 3),
                       Text(
@@ -484,7 +483,10 @@ class _InfoRow extends StatelessWidget {
           child: Text(label, style: const TextStyle(color: AppColors.textFaint, fontSize: 12)),
         ),
         Expanded(
-          child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500)),
+          child: Text(
+            value,
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12, fontWeight: FontWeight.w500),
+          ),
         ),
       ],
     );

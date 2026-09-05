@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -107,9 +106,8 @@ class _MergeDocumentsScreenState extends State<MergeDocumentsScreen> {
                   ? const Center(child: Text('No files added yet', style: TextStyle(color: AppColors.textFaint)))
                   : ReorderableListView.builder(
                 itemCount: _items.length,
-                onReorder: (oldIndex, newIndex) {
+                onReorderItem: (oldIndex, newIndex) {
                   setState(() {
-                    if (newIndex > oldIndex) newIndex -= 1;
                     final item = _items.removeAt(oldIndex);
                     _items.insert(newIndex, item);
                   });

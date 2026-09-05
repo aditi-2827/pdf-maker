@@ -9,13 +9,14 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: scheme.onSurface,
             fontWeight: FontWeight.w700,
             fontSize: 13,
             letterSpacing: 0.4,
@@ -26,7 +27,7 @@ class SectionHeader extends StatelessWidget {
             onTap: onTrailingTap,
             child: Text(
               trailing!,
-              style: const TextStyle(color: Colors.blueAccent, fontSize: 13, fontWeight: FontWeight.w600),
+              style: TextStyle(color: scheme.primary, fontSize: 13, fontWeight: FontWeight.w600),
             ),
           ),
       ],

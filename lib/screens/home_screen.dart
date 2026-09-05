@@ -61,19 +61,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text('JS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Welcome back,', style: TextStyle(color: AppColors.textFaint, fontSize: 12)),
-                        Text('PDF Maker', style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
+                        Text('Welcome back,', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12)),
+                        Text('PDF Maker', style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 17, fontWeight: FontWeight.w700)),
                       ],
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(12)),
-                    child: const Icon(Icons.notifications_none, color: Colors.white, size: 20),
+                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(12)),
+                    child: Icon(Icons.notifications_none, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 20),
                   ),
                 ],
               ),
@@ -239,8 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         (f) => Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: DocumentListTile(
-                        file: f,
-                        subtitle: formatFileMeta(f),
+                        name: f.path.split(Platform.pathSeparator).last,
+                        subtitle: FileHelper.formatFileMeta(f),
                         onTap: () async {
                           await Navigator.push(
                             context,

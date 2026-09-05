@@ -156,23 +156,26 @@ class _CompressScreenState extends State<CompressScreen> {
               ),
               const SizedBox(height: 20),
               const Text('Compression level', style: TextStyle(fontWeight: FontWeight.w600)),
-              RadioListTile<CompressLevel>(
-                title: const Text('Low (best quality)'),
-                value: CompressLevel.low,
+              RadioGroup<CompressLevel>(
                 groupValue: _level,
                 onChanged: (v) => setState(() => _level = v!),
-              ),
-              RadioListTile<CompressLevel>(
-                title: const Text('Medium (recommended)'),
-                value: CompressLevel.medium,
-                groupValue: _level,
-                onChanged: (v) => setState(() => _level = v!),
-              ),
-              RadioListTile<CompressLevel>(
-                title: const Text('High (smallest size)'),
-                value: CompressLevel.high,
-                groupValue: _level,
-                onChanged: (v) => setState(() => _level = v!),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    RadioListTile<CompressLevel>(
+                      title: Text('Low (best quality)'),
+                      value: CompressLevel.low,
+                    ),
+                    RadioListTile<CompressLevel>(
+                      title: Text('Medium (recommended)'),
+                      value: CompressLevel.medium,
+                    ),
+                    RadioListTile<CompressLevel>(
+                      title: Text('High (smallest size)'),
+                      value: CompressLevel.high,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
               FilledButton.icon(
